@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp
+  namespace: argocd
+spec:
+  destination:
+    namespace: app # 部署应用的命名空间
+    server: https://kubernetes.default.svc # API Server 地址
+  project: default # 项目名
+  source:
+    path: "."  # 指向 Git 仓库的根目录
+    repoURL: http://192.168.0.153:8090/lins/helm.git
+    targetRevision: main
+    helm:  # Helm 相关配置
+      valueFiles:
+        - values.yaml
